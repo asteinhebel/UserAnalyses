@@ -102,7 +102,7 @@ totHitNo=[0]*32
 # loop over all events in the file
 for dep in reader:
     count+=1
-    if count%100==0:
+    if count%1000==0:
 	print "Summing energy of event "+str(count)
     # get the collection from the event
     hitCollection = dep.getCollection( 'ECalBarrelHits' ) 
@@ -202,5 +202,6 @@ for i in range(7):
     backscatterEHist[i].SetStats(0)
     backscatterEHist[i].SetFillColor(kRed)
     scatterLegend[i].AddEntry(backscatterEHist[i],"Backscattered/Spread Hits ("+str(phir-pRange)+" rad >#Omega or #Omega > "+str(phir+pRange)+" rad)","f")
-    scatterLegend[i].AddEntry("",str(backEn[i]/(centerEn[i]+backEn[i])*100.)+"% of energy in backscatter/spreading","")
+    energyRound="{0:.2f}".format(round(backEn[i]/(centerEn[i]+backEn[i])*100.,2))
+    scatterLegend[i].AddEntry("",str(energyRound)+"% of energy in backscatter/spreading","")
     scatterLegend[i].Draw()
