@@ -10,7 +10,6 @@ import math
 siFirst=True
 #if set to false, then W-first is run
 
-
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Import root data file
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,6 +49,13 @@ for i in range(9):
     statHist[i].SetLabelSize(0.05,"xy")
     statHist[i].SetTitleSize(0.06,"xy")
 energySumCleaned=TH1D("Cleaned Total","Total measured Charge After Cleaning; Total Measured Charge [fC];Entries",100,0,10000)
+
+nullHistLegend=[0]*9
+null8HistLegend=[0]*9
+
+for i in range(9):
+    nullHistLegend[i]=TLegend(0.6,0.6,0.9,0.85)
+    null8HistLegend[i]=TLegend(0.6,0.6,0.9,0.85)
 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Set universal variables
@@ -143,6 +149,10 @@ for i in range(9):
     nullHist[i].Draw()
     nullHist[i].SetStats(0)
     nullHist[i].SetFillColor(ROOT.kRed)
+    entries=int(nullHist[i].GetEntries())
+    nullHistLegend[i].AddEntry("",str(entries)+" events","")
+    nullHistLegend[i].SetBorderSize(0)
+    nullHistLegend[i].Draw()
     nullHist[i].GetYaxis().SetTitleOffset(0.8)
     nullHist[i].GetXaxis().SetTitleOffset(0.8)
 
@@ -156,7 +166,11 @@ for i in range(9):
         index=i
     null8Hist[index].Draw()
     null8Hist[index].SetStats(0)
-    null8Hist[index].SetFillColor(ROOT.kMagenta)
+    null8Hist[index].SetFillColor(ROOT.kMagenta)    
+    entries=int(null8Hist[index].GetEntries())
+    null8HistLegend[index].AddEntry("",str(entries)+" events","")
+    null8HistLegend[index].SetBorderSize(0)
+    null8HistLegend[index].Draw()
     null8Hist[index].GetYaxis().SetTitleOffset(0.9)
     null8Hist[index].GetXaxis().SetTitleOffset(0.8)
 
