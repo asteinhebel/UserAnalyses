@@ -46,9 +46,9 @@ if siFirst:
     sensorsHist2=[0]*9
     energySum2=TH1D("Total","Total Measured Charge per Cleaned or Simulated Electron Events;Total Measured Charge [fC];Entries",100,0.,10000.)
     for i in range(9):
-        sensorsHist[i]=TH1D("Layer "+str(8-i)+"test1","Total Measured Charge - Layer "+str(9-i)+";Total Measured Charge [fC];Entries",30,0.,3000.)
-        sensorsHist2[i]=TH1D("Layer "+str(8-i)+"test2","Total Measured Charge - Layer "+str(9-i)+";Total Measured Charge [fC];Entries",30,0.,3000.)
-        sensorsHistS[i]=TH1D("Layer "+str(8-i)+"sim","Total Measured Charge - Layer "+str(9-i)+";Total Measured Charge [fC];Entries",30,0.,3000)
+        sensorsHist[i]=TH1D("Layer "+str(i)+"test1","Total Measured Charge - Layer "+str(i)+";Total Measured Charge [fC];Entries",30,0.,3000.)
+        sensorsHist2[i]=TH1D("Layer "+str(i)+"test2","Total Measured Charge - Layer "+str(i)+";Total Measured Charge [fC];Entries",30,0.,3000.)
+        sensorsHistS[i]=TH1D("Layer "+str(i)+"sim","Total Measured Charge - Layer "+str(i)+";Total Measured Charge [fC];Entries",30,0.,3000)
 else:
     for i in range(9):
         sensorsHist[i]=TH1D("Layer "+str(i)+"test","Total Measured Charge - Layer "+str(i)+";Total Measured Charge [fC];Entries",30,0.,3000.)
@@ -128,9 +128,9 @@ for entry in testBeam:
     m+=1
     if m%100000==0:
         print m
-
+        
 if siFirst:
-    #Second test beam data file - for Si-First runs only (no two good W-First runs)
+    #Second test beam data file - for Si-First runs only (no two good W-First runs)                                                                          
     m=0
     totalEnergy=0.0
     nullCount=0
@@ -140,7 +140,7 @@ if siFirst:
     sensorEnergy=[0.0]*9
 
     print "Counting second test beam data file"
- 
+
     for entry in testBeam2:
         if entry.eventID!=eventCount2:
             statDenom=totalEnergy
@@ -149,11 +149,11 @@ if siFirst:
                     nullCount+=1
                     statNum+=4.*(9-i)*(9-i)
                     statDenom+=4.
-                    statTotal=statNum/statDenom
+            statTotal=statNum/statDenom
             if nullCount!=8 and statTotal>44:
                 for i in range(9):
-                    sensorsHist2[i].Fill(sensorEnergy[i],1/121.84)
-                    energySum2.Fill(totalEnergy,1/121.84)
+                    sensorsHist2[i].Fill(sensorEnergy[i],1/127.75)
+                energySum2.Fill(totalEnergy,1/127.75)
             nullCount=0
             statNum=0.0
             statDenom=0.0
@@ -164,7 +164,7 @@ if siFirst:
         sensorEnergy[int(entry.SensorID)]+=entry.Charge*1000000000000000
         totalEnergy+=entry.Charge*1000000000000000
         statNum+=(entry.Charge*1000000000000000)*(9-entry.SensorID)*(9-entry.SensorID)
-        m+=1
+	m+=1
         if m%100000==0:
             print m
 
